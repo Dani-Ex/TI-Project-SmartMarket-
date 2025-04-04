@@ -35,7 +35,7 @@
       <div class="row">
         <div class="col-sm-4">
           <div class="card text-center">
-            <div class="card-header sensor">Temperatura: <?php echo $valor_temperatura; ?></div>
+            <div class="card-header sensor">Meu pau: <?php echo $valor_temperatura; ?></div>
             <div class="card-body"><img src="temperature-high.png"></div>
             <div class="card-footer">
               <a style="font-weight: bold;">Atualização:</a>
