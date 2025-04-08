@@ -1,0 +1,9 @@
+<?php 
+
+$username1= "DanielS";
+$username2= "DanielR";
+
+$password_hash1= "$2y$10$7fmPummW3UUV.nDrQ4lREuVF3DYw3uMQ6YN9U316o2pb6/RnoC.Im"; #12345
+$password_hash2= '$2y$10$APo9Qt/5eEvx7hdHKe302uxHMTBlOm0/80XjLEX1PtVvMZTLzT03a'; #abcde
+
+?>

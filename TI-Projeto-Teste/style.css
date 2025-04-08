@@ -1,0 +1,33 @@
+.AulaForm{
+    width: 350px;
+    padding: 15px;
+}
+.sensor{
+    background-color: #93baff;
+}
+.atuador{ 
+    background-color: #ffbf6c;
+}
+
+
+.background{
+
+    background-color: #000000
+
+}
+
+.subtitle{
+    font-weight: bold;
+}
+
+.backgroundcaixas {
+    background-color: rgb(61, 59, 59);
+}
+
+
+
+
+
+
+
+
