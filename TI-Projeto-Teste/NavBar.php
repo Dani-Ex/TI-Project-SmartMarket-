@@ -1,79 +1,68 @@
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
-    include 'index.php';
+// Redirect if user is not logged in
+if (!isset($_SESSION["username"])) {
+    header("Location: /index.php");
     exit();
-} else {
-    $current_user = $_SESSION["username"];
+}
+
+/**
+ * Function to render the navigation bar
+ */
+function renderNavBar()
+{
+    ?>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
+        <div class="container-fluid">
+            <a class="navbar-brand fw-bold" href="dashboard.php">
+                <i class="bi bi-cart3 me-2"></i> Smart Market
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="dashboard.php">
+                            <i class="bi bi-house-door me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-sensors me-1"></i> Sensores
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
+                            <li><a class="dropdown-item" href="historico.php?page=temperatura">Temperatura</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=humidade">Humidade</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=luz">Luz</a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <div class="d-flex">
+                    <a href="logout.php" class="btn btn-outline-light">
+                        <i class="bi bi-box-arrow-right me-1"></i> Logout
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <?php
+}
+
+/**
+ * Function to include the correct page content
+ */
+function loadPageContent()
+{
+    $validPages = [
+        'dashboard' => 'dashboard.php',
+        'temperatura' => 'history.php',
+        'humidade' => 'history.php',
+        'luz' => 'history.php',
+    ];
+    
+    $page = $_GET['page'] ?? 'dashboard';
+    include $validPages[$page] ?? $validPages['dashboard'];
 }
 ?>
-
-<!DOCTYPE html>
-<html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supermercado Inteligente</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-
-    <div class="container-fluid">
-        <!-- NavBar -->
-        <nav class="navbar navbar-expand-sm border-bottom border-body bg-body-secondary align-items-center" data-bs-theme="dark">
-            <div>
-                <a class="navbar-brand subtitle" href="?page=dashboard"> Supermercado Inteligente </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav nav-pills me-auto ">
-                        <li class="nav-item">
-                            <a class="nav-link px-0 d-flex align-items-center active" aria-current="page" href="?page=dashboard">Home</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropsown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Sensores</a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="?page=temperature">Temperatura</a></li>
-                                <li><a class="dropdown-item" href="?page=humidity">Humidade</a></li>
-                                <li><a class="dropdown-item" href="?page=led">Luz</a></li>
-                            </ul>
-                        </li>
-                    </ul>
-                </div>
-                <form>
-                    <a href="logout.php"><button class="btn btn-default" type="button">Logout</button></a>
-                </form>
-            </div>
-        </nav>
-        <!-- Main -->
-        <div>
-            <?php
-            $page = isset($_GET['page']) ? $_GET['page'] : 'dashboard';
-
-            switch ($page) {
-                case 'dashboard':
-                    include 'dashboard.php';
-                    break;
-                case 'temperature':
-                    include 'historico.php';
-                    break;
-                case 'humidity':
-                    include 'historico.php';
-                    break;
-                case 'led':
-                    include 'historico.php';
-                    break;
-                default:
-                    include 'dashboard.php';
-            }
-            ?>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-
-</body>
