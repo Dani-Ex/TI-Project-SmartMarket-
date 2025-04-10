@@ -1,38 +1,39 @@
-.AulaForm{
+.AulaForm {
     width: 350px;
     padding: 15px;
 }
-.sensor{
+
+.sensor {
     background-color: #93baff;
 }
-.atuador{ 
+
+.atuador {
     background-color: #ffbf6c;
 }
 
 
-.background{
+.background {
 
     background-color: #000000
-
 }
 
-.subtitle{
+.subtitle {
     font-weight: bold;
 }
 
 .backgroundDashboard {
-    background-color: #ffe481   ;
+    background-color: #ffe481;
 }
 
 .backgroundindex {
     height: 100vh;
     display: flex;
-    align-items: center; 
-    justify-content: center; 
-    
+    align-items: center;
+    justify-content: center;
+
     background-image: url('Imagens/IndexFood.png');
     background-repeat: no-repeat;
-    background-attachment: fixed;   
+    background-attachment: fixed;
     background-size: cover;
 }
 
@@ -61,7 +62,7 @@ input[type="password"]:focus {
 }
 
 button {
-    background-color: #138A47;      
+    background-color: #138A47;
     border: none;
     padding: 10px 20px;
     border-radius: 6px;
@@ -78,8 +79,9 @@ button:hover {
 body {
     padding-top: 0;
     margin-top: 0;
-  }
-  
+    
+}
+
 .navbar {
     margin-bottom: 0;
     position: sticky;
@@ -90,4 +92,45 @@ body {
 .historyTitle {
     font-size: 40px;
     font-weight: 600;
-  }
+}
+
+.bg-body-tertiary {
+    background-color: #191c24 !important;
+}
+
+.bg-body-tertiary-secondary {
+    background-color: #cbb35e !important;
+}
+
+.fullHeight {
+    height: 100%;
+}
+
+.card-body img {
+    width: 100px;  /* Adjust based on your needs */
+    height: 100px; /* Ensures uniformity */
+    object-fit: contain; /* Prevents distortion */
+    display: block;
+    margin: 0 auto; /* Centers the image */
+}
+
+.card {
+    height: 100%; /* Ensures all cards stretch evenly */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Ensures footer is at the bottom */
+}
+
+.row {
+    margin: 0 -10px; /* Adjust to control spacing between columns */
+}
+
+.col-sm-4 {
+    padding: 10px; /* Space between cards */
+}
+
+.container .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* Adjust alignment */
+}

@@ -5,16 +5,20 @@ include("Credenciais/Logins");
 $formFoiSubmetido = false;
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['username'], $_POST['password']) && $_POST['username'] == $username1 && password_verify($_POST['password'], $password_hash1)) {
-        $_SESSION['username'] = $username1;
-        header("Location: dashboard.php");
-        exit;
-    } elseif (isset($_POST['username'], $_POST['password']) && $_POST['username'] == $username2 && password_verify($_POST['password'], $password_hash2)) {
-        $_SESSION['username'] = $username2;
-        header("Location: dashboard.php");
-        exit;
+    if (isset($_POST['username'], $_POST['password'])) {
+        if ($_POST['username'] == $username1 && password_verify($_POST['password'], $password_hash1)) {
+            $_SESSION['username'] = $username1;
+            header("Location: dashboard.php");
+            exit;
+        } elseif ($_POST['username'] == $username2 && password_verify($_POST['password'], $password_hash2)) {
+            $_SESSION['username'] = $username2;
+            header("Location: dashboard.php");
+            exit;
+        } else {
+            $erroLogin = "Username ou password está errada!";
+        }
     } else {
-        $erroLogin = "Password está errada!";
+        $erroLogin = "Por favor, preencha todos os campos!";
     }
 }
 ?>
@@ -39,10 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <h1 class="container d-flex justify-content-around align-items-center" style="font-family: Verdana; font-weight: bold; color: #FFD14B">
                         Login
                     </h1>
-                    <d class="mb-3">
+                    <div class="mb-3">
                         <label for="exampleInputUser1" class="form-label"></label>
                         <input type="text" id="exampleInputUser1" placeholder="Username" name="username" required>
-                    </d iv>
+                    </div iv>
                     <div class="mb-3">
                         <label for="exampleInputPassword1" class="form-label"></label>
                         <input type="password" id="exampleInputPassword1" placeholder="Password" name="password" required>

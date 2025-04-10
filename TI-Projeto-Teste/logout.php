@@ -5,4 +5,5 @@
     
     session_destroy();  // destrói a sessão;
     header( "refresh:0;url=index.php" ); 
+    exit;
 ?>

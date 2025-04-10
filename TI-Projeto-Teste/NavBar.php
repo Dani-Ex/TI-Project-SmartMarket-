@@ -1,18 +1,15 @@
 <?php
 session_start();
 
-// Redirect if user is not logged in
-if (!isset($_SESSION["username"])) {
-    header("Location: /index.php");
-    exit();
-}
-
-/**
- * Function to render the navigation bar
- */
+//Função para aparecer a NavBar
 function renderNavBar()
 {
-    ?>
+    //Assegura que existe um Usuario logged in
+    if (!isset($_SESSION["username"])) {
+        header("refresh:5;url=index.php");
+        die("Acesso restrito");
+    }
+?>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark sticky-top">
         <div class="container-fluid">
             <a class="navbar-brand fw-bold" href="dashboard.php">
@@ -33,35 +30,49 @@ function renderNavBar()
                             <i class="bi bi-sensors me-1"></i> Sensores
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
-                            <li><a class="dropdown-item" href="historico.php?page=temperatura">Temperatura</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=temperatura_ambiente">Temperatura Ambiente</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=temperatura_arca"> Temperatura Arca</a></li>
                             <li><a class="dropdown-item" href="historico.php?page=humidade">Humidade</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                            <i class="bi bi-sensors me-1"></i> Atuadores
+                        </a>
+                        <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="historico.php?page=luz">Luz</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=ac">Ar Condicionado</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=porta">Porta</a></li>
                         </ul>
                     </li>
                 </ul>
-                <div class="d-flex">
-                    <a href="logout.php" class="btn btn-outline-light">
-                        <i class="bi bi-box-arrow-right me-1"></i> Logout
+                <li class="nav-item dropdown navbar-nav ">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+                        <i class="bi bi-sensors me-1"></i> User: <?php echo $_SESSION['username'] ?>
                     </a>
-                </div>
+                    <ul class="dropdown-menu dropdown-menu-dark">
+                        <li><a class="dropdown-item" href="logout.php">Logout</a></li>
+                    </ul>
+                </li>
             </div>
         </div>
     </nav>
-    <?php
+<?php
 }
 
-/**
- * Function to include the correct page content
- */
+//Função para incluir corretamente o conteudo da pagina
 function loadPageContent()
 {
     $validPages = [
         'dashboard' => 'dashboard.php',
-        'temperatura' => 'history.php',
+        'temperatura_ambiente' => 'history.php',
+        'temperatura_arca' => 'history.php',
         'humidade' => 'history.php',
         'luz' => 'history.php',
+        'ac' => 'history.php',
+        'porta' => 'history.php',
     ];
-    
+
     $page = $_GET['page'] ?? 'dashboard';
     include $validPages[$page] ?? $validPages['dashboard'];
 }
