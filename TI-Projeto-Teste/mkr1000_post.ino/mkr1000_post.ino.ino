@@ -167,10 +167,10 @@ void loop() {
 
     // Verifica a temperatura AC
     if (temperatura >= 60.0) {
-      digitalWrite(LED_BUILTIN, HIGH); // Liga LED; AC ligado para desumidificar
+      digitalWrite(LED_BUILTIN, HIGH); // Liga LED; Aviso q é preciso Desumidificar
       Serial.println("Humidade >= 60%. LED ligado.");
     } else {
-      digitalWrite(LED_BUILTIN, LOW);  // Desliga LED; AC desligado para voltar a temperatura ambiente
+      digitalWrite(LED_BUILTIN, LOW);  // Desliga LED; Já n é preciso Desumidificar
       Serial.println("Temperatura < 60%. LED desligado.");
     }
 
