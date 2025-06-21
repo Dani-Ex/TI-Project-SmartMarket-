@@ -10,20 +10,32 @@ while True:
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
         
-        payload_AC = {
-                    'nome': 'AC',
+        payload_ACAmbiente = {
+                    'nome': 'ac_ambiente',
+                    'valor': '1',
+                    'hora': timestamp
+                }
+        
+        payload_ACArca = {
+                    'nome': 'ac_arca',
                     'valor': '1',
                     'hora': timestamp
                 }
         
         payload_Porta = {
-                    'nome': 'Porta',
+                    'nome': 'porta',
+                    'valor': '1',
+                    'hora': timestamp
+                }
+        
+        payload_Desumidificador = {
+                    'nome': 'desumidificador',
                     'valor': '1',
                     'hora': timestamp
                 }
         
         payload_Luz = {
-                    'nome': 'Luz',
+                    'nome': 'luz',
                     'valor': '1',
                     'hora': timestamp
                 }
@@ -31,23 +43,57 @@ while True:
         response_Porta = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php?nome=porta')
         response_luz = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php?nome=luz')
 
-        response_temperatura = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/TI-Project-SmartMarket-/api/files/temperatura_ambient/valor.txt')
+        response_temperaturaAmbiente = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/TI-Project-SmartMarket-/api/files/temperatura_ambiente/valor.txt')
+        response_temperaturaArca = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/TI-Project-SmartMarket-/api/files/temperatura_arca/valor.txt')
+        response_humidade = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/TI-Project-SmartMarket-/api/files/humidade/valor.txt')
         
-        if response_temperatura.status_code == 200:
-            temperatura = float(response_temperatura.text) 
+        if response_temperaturaAmbiente.status_code == 200:
+            temperaturaAmbiente = float(response_temperaturaAmbiente.text) 
 
-            if temperatura > 20:
-                payload_AC['valor'] = '1'
+            if temperaturaAmbiente > 20:
+                payload_ACAmbiente['valor'] = '1'
                 print("vou ligar o AC do supermercado")
             else:
-                payload_AC['valor'] = '0'
+                payload_ACAmbiente['valor'] = '0'
                 print("vou desligar o AC do supermercado")
 
-            r=requests.post('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php', data=payload_AC)
+            r=requests.post('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php', data=payload_ACAmbiente)
             print(r.text)
 
         else:
-            print(f"Erro na requisição. Código de status: {response_temperatura.status_code}")
+            print(f"Erro na requisição. Código de status: {response_temperaturaArca.status_code}")
+            
+        if response_temperaturaArca.status_code == 200:
+            temperaturaArca = float(response_temperaturaArca.text) 
+
+            if temperaturaArca > -1:
+                payload_ACArca['valor'] = '1'
+                print("vou ligar o AC do supermercado")
+            else:
+                payload_ACArca['valor'] = '0'
+                print("vou desligar o AC do supermercado")
+
+            r=requests.post('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php', data=payload_ACArca)
+            print(r.text)
+
+        else:
+            print(f"Erro na requisição. Código de status: {response_temperaturaArca.status_code}") 
+       
+        if response_humidade.status_code == 200:
+            humidade = float(response_humidade.text) 
+
+            if humidade > 60:
+                payload_ACArca['valor'] = '1'
+                print("vou ligar o AC do supermercado")
+            else:
+                payload_ACArca['valor'] = '0'
+                print("vou desligar o AC do supermercado")
+
+            r=requests.post('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php', data=payload_Desumidificador)
+            print(r.text)
+
+        else:
+            print(f"Erro na requisição. Código de status: {response_humidade.status_code}") 
             
         if response_Porta.status_code == 200:
             ValorPorta = response_Porta.json()
