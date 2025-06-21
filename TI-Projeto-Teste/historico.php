@@ -1,9 +1,10 @@
 <?php
+session_start();
 //Altera o Valor da variavel Sensor para o da pagina selecionada
-$validSensors = ['temperatura_ambiente', 'temperatura_arca', 'humidade', 'luz', 'ac_ambiente', 'porta','ac_arca','desumidificador'];
+$validSensors = ['temperatura_ambiente', 'temperatura_arca', 'humidade', 'luz', 'ac_ambiente','ac_arca','desumidificador','porta'];
 $sensor = isset($_GET['page']) && in_array($_GET['page'], $validSensors) ? $_GET['page'] : '';
 
-$nomeFile = "Api/files/$sensor/nome.txt";
+$nomeFile = "api/files/$sensor/nome.txt";
 if (!file_exists($nomeFile)) {
     die("File $nomeFile not found.");
 }
@@ -11,17 +12,30 @@ $nome = file_get_contents($nomeFile);
 
 include_once('NavBar.php');
 
-?>
+// Verifica se o parâmetro 'page' está presente na query string
+if (isset($_GET['page'])) {
+    $pagina = $_GET['page'];
 
-<html>
+    // Evitar registar a própria página do histórico
+    if ($pagina !== 'atividade') {
+        $linha = $pagina . '|' . date("Y-m-d H:i:s") . "\n";
+        file_put_contents('page.txt', $linha, FILE_APPEND);
+    }
+}
+
+
+?>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-    <meta charset="utf-8" http-equiv="refresh" content="5">
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="5">
     <title>Historico</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="style.css">
 
-
+    
 </head>
 
 <body class="backgroundDashboard">
@@ -54,7 +68,7 @@ include_once('NavBar.php');
                 $sensor_data = [];
                 $sensor_times = [];
                 // Le os valores do Log do sensor selecionado
-                $logFile = "Api/files/$sensor/log.txt";
+                $logFile = "api/files/$sensor/log.txt";
                 if (!file_exists($logFile)) {
                     die("File $logFile not found.");
                 }

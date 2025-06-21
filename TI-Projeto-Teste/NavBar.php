@@ -25,6 +25,11 @@ function renderNavBar()
                             <i class="bi bi-house-door me-1"></i> Home
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="atividade.php">
+                            <i class="bi bi-house-door me-1"></i> Atividade
+                        </a>
+                    </li>
                     <li class="nav-item dropdown">
                         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                             <i class="bi bi-sensors me-1"></i> Sensores
@@ -41,21 +46,21 @@ function renderNavBar()
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="historico.php?page=luz">Luz</a></li>
-                            <li><a class="dropdown-item" href="historico.php?page=ac">Ar Condicionado Ambiente</a></li>
-                            <li><a class="dropdown-item" href="historico.php?page=porta">Ar Condicionado Arca</a></li>
-                            <li><a class="dropdown-item" href="historico.php?page=porta">Desumidificador</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=ac_ambiente">Ar Condicionado Ambiente</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=ac_arca">Ar Condicionado Arca</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=desumidificador">Desumidificador</a></li>
                             <li><a class="dropdown-item" href="historico.php?page=porta">Porta</a></li>
                         </ul>
                     </li>
                 </ul>
-                <li class="nav-item dropdown navbar-nav ">
+                <div class="nav-item dropdown navbar-nav ">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         <i class="bi bi-sensors me-1"></i> User: <?php echo $_SESSION['username'] ?>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark">
                         <li><a class="dropdown-item" href="logout.php">Logout</a></li>
                     </ul>
-                </li>
+                </div>
             </div>
         </div>
     </nav>
