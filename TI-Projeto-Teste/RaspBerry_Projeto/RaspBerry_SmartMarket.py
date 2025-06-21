@@ -27,6 +27,11 @@ while True:
                     'valor': '1',
                     'hora': timestamp
                 }
+        payload_Portao = {
+                    'nome': 'portao',
+                    'valor': '1',
+                    'hora': timestamp
+                }
         
         payload_Desumidificador = {
                     'nome': 'desumidificador',
@@ -42,6 +47,7 @@ while True:
     
         response_Porta = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php?nome=porta')
         response_luz = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php?nome=luz')
+        response_Portao = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php?nome=portao')
 
         response_temperaturaAmbiente = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/TI-Project-SmartMarket-/api/files/temperatura_ambiente/valor.txt')
         response_temperaturaArca = requests.get('http://iot.dei.estg.ipleiria.pt/ti/ti088/TI-Project-SmartMarket-/api/files/temperatura_arca/valor.txt')
@@ -112,6 +118,24 @@ while True:
 
         else:
             print(f"Erro na requisição. Código de status: {response_Porta.status_code}")
+            
+        if response_Portao.status_code == 200:
+            ValorPortao = response_Portao.json()
+            Portao_Estado = int(ValorPortao.get('valor', 0))
+
+            if Portao_Estado == 1:
+                payload_Portao['valor'] = '1'
+                print("vou abrir o portao")
+
+            else:
+                payload_Portao['valor'] = '0'
+                print("vou fechar o portao")
+                
+            r=requests.post('http://iot.dei.estg.ipleiria.pt/ti/ti088/api/api.php', data=payload_Portao)
+            print(r.text)
+
+        else:
+            print(f"Erro na requisição. Código de status: {response_Portao.status_code}")    
             
         if response_luz.status_code == 200:
             ValorLuz =  response_luz.json()
