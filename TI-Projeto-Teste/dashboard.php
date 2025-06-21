@@ -23,7 +23,9 @@ list($valores_tempGeral, $horas_tempGeral, $nome_temperaturaGeral) = readLogData
 list($valores_tempArca, $horas_tempArca, $nome_temperaturaArca) = readLogData("Api/files/temperatura_arca/valor.txt", "Api/files/temperatura_arca/hora.txt", "Api/files/temperatura_arca/nome.txt");
 list($valores_humidade, $horas_humidade, $nome_humidade) = readLogData("Api/files/humidade/valor.txt", "Api/files/humidade/hora.txt", "Api/files/humidade/nome.txt");
 list($valores_luz, $horas_luz, $nome_luz) = readLogData("Api/files/luz/valor.txt", "Api/files/luz/hora.txt", "Api/files/luz/nome.txt");
-list($valores_ac, $horas_ac, $nome_ac) = readLogData("Api/files/ac/valor.txt", "Api/files/ac/hora.txt", "Api/files/ac/nome.txt");
+list($valores_acGeral, $horas_acGeral, $nome_acGeral) = readLogData("Api/files/ac_ambiente/valor.txt", "Api/files/ac_ambiente/hora.txt", "Api/files/ac_ambiente/nome.txt");
+list($valores_acArca, $horas_acArca, $nome_acArca) = readLogData("Api/files/ac_arca/valor.txt", "Api/files/ac_arca/hora.txt", "Api/files/ac_arca/nome.txt");
+list($valores_desumidificador, $horas_desumidificador, $nome_desumidificador) = readLogData("Api/files/desumidificador/valor.txt", "Api/files/desumidificador/hora.txt", "Api/files/desumidificador/nome.txt");
 list($valores_porta, $horas_porta, $nome_porta) = readLogData("Api/files/porta/valor.txt", "Api/files/porta/hora.txt", "Api/files/porta/nome.txt");
 
 ?>
@@ -138,12 +140,12 @@ list($valores_porta, $horas_porta, $nome_porta) = readLogData("Api/files/porta/v
         </div>
       </div>
 
-      <!-- AC Card -->
+      <!-- AC Ambiente Card -->
       <div class="col-sm-4">
         <div class="card text-center">
           <!-- Verificaçao Valor AC -->
           <!-- Estado AC -->
-          <div class="card-header atuador">AC Arduino: <?php if (end($valores_ac) == '1') {
+          <div class="card-header atuador">AC Ambiente Arduino: <?php if (end($valores_acGeral) == '1') {
                                                           echo 'Ligado';
                                                         } else {
                                                           echo 'Desligado';
@@ -152,7 +154,47 @@ list($valores_porta, $horas_porta, $nome_porta) = readLogData("Api/files/porta/v
           <!-- Última Atualização e historico do AC -->
           <div class="card-footer">
             <span class="subtitle">Última Atualização:</span>
-            <span><?php echo end($horas_ac); ?></span>
+            <span><?php echo end($horas_acGeral); ?></span>
+            <a href="historico.php?page=ac" class="card-link">Histórico</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- AC Arca Card -->
+      <div class="col-sm-4">
+        <div class="card text-center">
+          <!-- Verificaçao Valor AC -->
+          <!-- Estado AC -->
+          <div class="card-header atuador">AC Arca Arduino: <?php if (end($valores_acArca) == '1') {
+                                                          echo 'Ligado';
+                                                        } else {
+                                                          echo 'Desligado';
+                                                        } ?></div>
+          <div class="card-body"><img src="Imagens/ac.png"></div>
+          <!-- Última Atualização e historico do AC -->
+          <div class="card-footer">
+            <span class="subtitle">Última Atualização:</span>
+            <span><?php echo end($horas_acArca); ?></span>
+            <a href="historico.php?page=ac" class="card-link">Histórico</a>
+          </div>
+        </div>
+      </div>
+
+     <!-- Desumidificador Card -->
+      <div class="col-sm-4">
+        <div class="card text-center">
+          <!-- Verificaçao Valor Desumidificador -->
+          <!-- Estado Desumidificador -->
+          <div class="card-header atuador">Desumidificador Arduino: <?php if (end($valores_desumidificador) == '1') {
+                                                          echo 'Ligado';
+                                                        } else {
+                                                          echo 'Desligado';
+                                                        } ?></div>
+          <div class="card-body"><img src="Imagens/humidity-high.png"></div>
+          <!-- Última Atualização e historico do Desumidificador -->
+          <div class="card-footer">
+            <span class="subtitle">Última Atualização:</span>
+            <span><?php echo end($horas_desumidificador); ?></span>
             <a href="historico.php?page=ac" class="card-link">Histórico</a>
           </div>
         </div>

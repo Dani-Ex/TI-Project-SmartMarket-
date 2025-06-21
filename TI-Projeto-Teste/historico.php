@@ -1,6 +1,6 @@
 <?php
 //Altera o Valor da variavel Sensor para o da pagina selecionada
-$validSensors = ['temperatura_ambiente', 'temperatura_arca', 'humidade', 'luz', 'ac', 'porta'];
+$validSensors = ['temperatura_ambiente', 'temperatura_arca', 'humidade', 'luz', 'ac_ambiente', 'porta','ac_arca','desumidificador'];
 $sensor = isset($_GET['page']) && in_array($_GET['page'], $validSensors) ? $_GET['page'] : '';
 
 $nomeFile = "Api/files/$sensor/nome.txt";

@@ -41,7 +41,9 @@ function renderNavBar()
                         </a>
                         <ul class="dropdown-menu dropdown-menu-dark">
                             <li><a class="dropdown-item" href="historico.php?page=luz">Luz</a></li>
-                            <li><a class="dropdown-item" href="historico.php?page=ac">Ar Condicionado</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=ac">Ar Condicionado Ambiente</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=porta">Ar Condicionado Arca</a></li>
+                            <li><a class="dropdown-item" href="historico.php?page=porta">Desumidificador</a></li>
                             <li><a class="dropdown-item" href="historico.php?page=porta">Porta</a></li>
                         </ul>
                     </li>
@@ -69,7 +71,9 @@ function loadPageContent()
         'temperatura_arca' => 'history.php',
         'humidade' => 'history.php',
         'luz' => 'history.php',
-        'ac' => 'history.php',
+        'ac_ambiente' => 'history.php',
+        'ac_arca' => 'history.php',
+        'desumidificador' => 'history.php',
         'porta' => 'history.php',
     ];
 
